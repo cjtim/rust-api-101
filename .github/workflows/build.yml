@@ -8,7 +8,8 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy: 
       matrix:
-        os: [macos-latest, windows-latest, ubuntu-18.04]
+        # os: [macos-latest, windows-latest, ubuntu-18.04]
+        os: [ubuntu-18.04]
     steps:
       - name: Checkout branch
         uses: actions/checkout@v2
@@ -17,4 +18,11 @@ jobs:
         run: cargo test --verbose
 
       - name: Build
-        run: cargo build --verbose
+        run: cargo build --verbose --release
+
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: release-${{ matrix.os }}
+          path: |
+            target/release
