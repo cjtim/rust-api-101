@@ -24,5 +24,6 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: release-${{ matrix.os }}
+          retention-days: 2
           path: |
             target/release
